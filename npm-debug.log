@@ -1,0 +1,2 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/bin/npm', 'install', 'shifter', '-g', '--force' ]
