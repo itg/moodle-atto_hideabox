@@ -22,15 +22,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['createhideabox'] = 'Create hideabox';
-$string['pluginname'] = 'hideabox (Atto)';
-$string['settings'] = 'hideabox (Atto)';
+$string['createhideabox'] = 'Create Hideabox';
+$string['pluginname'] = 'Hideabox';
+$string['settings'] = 'Hideabox';
 $string['browse'] = 'Browse';
 $string['visible'] = 'Visible';
 $string['nothingtoinsert'] = 'Nothing to insert!';
-$string['dialogtitle'] = 'Enter Preferences';
+$string['dialogtitle'] = 'Edit Hide-a-box';
 $string['insert'] = 'Insert';
 $string['cancel'] = 'Cancel';
-$string['enterflavor'] = 'Enter Ice Cream Flavor';
+$string['headline'] = 'Headline Text';
+$string['content'] = 'Content';
 $string['defaultflavor'] = 'Default Ice Cream Flavor';
 $string['hideabox:visible'] = 'Visible';

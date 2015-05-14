@@ -34,27 +34,39 @@ YUI.add('moodle-atto_hideabox-button', function (Y, NAME) {
  */
 
 var COMPONENTNAME = 'atto_hideabox';
-var FLAVORCONTROL = 'hideabox_flavor';
+var HEADLINE = 'hideabox_headline';
+var CONTENT = 'hideabox_content';
 var LOGNAME = 'atto_hideabox';
 
 var CSS = {
         INPUTSUBMIT: 'atto_media_urlentrysubmit',
         INPUTCANCEL: 'atto_media_urlentrycancel',
-        FLAVORCONTROL: 'flavorcontrol'
+        HEADLINE:    'headline',
+        CONTENT:     'content'
     },
     SELECTORS = {
-        FLAVORCONTROL: '.flavorcontrol'
+        HEADLINE:   '.headline',
+        CONTENT:    '.content'
     };
 
 var TEMPLATE = '' +
     '<form class="atto_form">' +
         '<div id="{{elementid}}_{{innerform}}" class="mdl-align">' +
-            '<label for="{{elementid}}_{{FLAVORCONTROL}}">{{get_string "enterflavor" component}}</label>' +
-            '<input class="{{CSS.FLAVORCONTROL}} id="{{elementid}}_{{FLAVORCONTROL}}" name="{{elementid}}_{{FLAVORCONTROL}}" value="{{defaultflavor}}" />' +
-            '<button class="{{CSS.INPUTSUBMIT}}">{{get_string "insert" component}}</button>' +
+            '<label for="{{elementid}}_{{HEADLINE}}">{{get_string "headline" component}}</label>' +
+            '<input class="{{CSS.HEADLINE}}" id="{{elementid}}_{{HEADLINE}}" name="{{elementid}}_{{HEADLINE}}" value="{{defaultflavor}}" />' +
+            '<label for="{{elementid}}_{{CONTENT}}">{{get_string "content" component}}</label>' +
+            '<input class="{{CSS.CONTENT}}" id="{{elementid}}_{{CONTENT}}" name="{{elementid}}_{{CONTENT}}" value="" />' +
+            '<div class="mdl-align">' +
+                '<button type="submit" class="{{CSS.INPUTSUBMIT}}">{{get_string "insert" component}}</button>' +
+            '</div>' +
         '</div>' +
-        'icon: {{clickedicon}}'  +
     '</form>';
+
+var HTML_TEMPLATE = '' +
+    '<div class="hideabox" id="{{elementid}}_{{component}}">' +
+        '<a class="toggle">{{htext}}</a>' +
+        '<div class="boxhidden">{{ctext}}</div>' +
+    '</div>';
 
 Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
 
@@ -95,15 +107,14 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
      * @method _displayDialogue
      * @private
      */
-    _displayDialogue: function(e, clickedicon) {
+    _displayDialogue: function(e) {
         e.preventDefault();
-        var width=400;
+        var width=500;
 
 
         var dialogue = this.getDialogue({
             headerContent: M.util.get_string('dialogtitle', COMPONENTNAME),
-            width: width + 'px',
-            focusAfterHide: clickedicon
+            width: width + 'px'
         });
 		//dialog doesn't detect changes in width without this
 		//if you reuse the dialog, this seems necessary
@@ -112,7 +123,7 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
         }
 
         //append buttons to iframe
-        var buttonform = this._getFormContent(clickedicon);
+        var buttonform = this._getFormContent();
 
         var bodycontent =  Y.Node.create('<div></div>');
         bodycontent.append(buttonform);
@@ -132,15 +143,15 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
      * @return {Node} The content to place in the dialogue.
      * @private
      */
-    _getFormContent: function(clickedicon) {
+    _getFormContent: function() {
         var template = Y.Handlebars.compile(TEMPLATE),
             content = Y.Node.create(template({
                 elementid: this.get('host').get('elementid'),
                 CSS: CSS,
-                FLAVORCONTROL: FLAVORCONTROL,
+                HEADLINE: HEADLINE,
+                CONTENT: CONTENT,
                 component: COMPONENTNAME,
-                defaultflavor: this.get('defaultflavor'),
-                clickedicon: clickedicon
+                defaultflavor: this.get('defaultflavor')
             }));
 
         this._form = content;
@@ -159,16 +170,28 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
             focusAfterHide: null
         }).hide();
 
-        var flavorcontrol = this._form.one(SELECTORS.FLAVORCONTROL);
+        var htext = this._form.one(SELECTORS.HEADLINE);
+        var ctext  = this._form.one(SELECTORS.CONTENT);
 
-        // If no file is there to insert, don't do it.
-        if (!flavorcontrol.get('value')){
-            Y.log('No flavor control or value could be found.', 'warn', LOGNAME);
+        // If there is no content to, don't.
+        if (!ctext.get('value')){
+            Y.log('No content could be found.', 'warn', LOGNAME);
             return;
         }
 
         this.editor.focus();
-        this.get('host').insertContentAtFocusPoint(flavorcontrol.get('value'));
+        var template = Y.Handlebars.compile(HTML_TEMPLATE);
+        var content = template({
+                elementid: this.get('host').get('elementid'),
+                HEADLINE: HEADLINE,
+                CONTENT: CONTENT,
+                component: COMPONENTNAME,
+                htext: htext.get('value'),
+                ctext: ctext.get('value')
+            });
+
+
+        this.get('host').insertContentAtFocusPoint(content);
         this.markUpdated();
 
     }
