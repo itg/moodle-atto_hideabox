@@ -51,14 +51,20 @@ var CSS = {
 
 var TEMPLATE = '' +
     '<form class="atto_form">' +
-        '<div id="{{elementid}}_{{innerform}}" class="mdl-align">' +
+        '<div id="{{elementid}}_{{innerform}}">' +
             '<label for="{{elementid}}_{{HEADLINE}}">{{get_string "headline" component}}</label>' +
-            '<input class="{{CSS.HEADLINE}}" id="{{elementid}}_{{HEADLINE}}" name="{{elementid}}_{{HEADLINE}}" value="{{defaultflavor}}" />' +
+            '<input class="{{component}}_{{CSS.HEADLINE}} {{CSS.HEADLINE}} fullwidth" id="{{elementid}}_{{HEADLINE}}" ' +
+                ' name="{{elementid}}_{{HEADLINE}}" type="text" value="{{defaultflavor}}" />' +
             '<label for="{{elementid}}_{{CONTENT}}">{{get_string "content" component}}</label>' +
-            '<input class="{{CSS.CONTENT}}" id="{{elementid}}_{{CONTENT}}" name="{{elementid}}_{{CONTENT}}" value="" />' +
+            '<textarea class="{{component}}_{{CSS.CONTENT}} {{CSS.CONTENT}} fullwidth" style="height: 10em;" id="{{elementid}}_{{CONTENT}}" ' +
+                ' name="{{elementid}}_{{CONTENT}}"></textarea>' +
             '<div class="mdl-align">' +
                 '<button type="submit" class="{{CSS.INPUTSUBMIT}}">{{get_string "insert" component}}</button>' +
             '</div>' +
+            '<p>This will insert hidden content that can be revealed by clicking on a link.<br />' +
+                '<em>You cannot edit an existing hideabox, only insert new ones!</em><br />' +
+                '<em>Content entered here will be rendered exactly as shown (no HTML here)!</em>' +
+            '</p>' +
         '</div>' +
     '</form>';
 
@@ -173,7 +179,7 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
         var htext = this._form.one(SELECTORS.HEADLINE);
         var ctext  = this._form.one(SELECTORS.CONTENT);
 
-        // If there is no content to, don't.
+        // If there is no content to insert, don't.
         if (!ctext.get('value')){
             return;
         }
