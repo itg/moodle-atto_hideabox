@@ -30,6 +30,6 @@ $ADMIN->add('editoratto', new admin_category('atto_hideabox', new lang_string('p
 $settings = new admin_settingpage('atto_hideabox_settings', new lang_string('settings', 'atto_hideabox'));
 if ($ADMIN->fulltree) {
 	// An option setting
-	$settings->add(new admin_setting_configtext('atto_hideabox/defaultflavor', 
-		get_string('defaultflavor', 'atto_hideabox'), '', 'vanilla', PARAM_TEXT));
+	$settings->add(new admin_setting_configtext('atto_hideabox/defaultheadline',
+		get_string('defaultheadline', 'atto_hideabox'), '', 'Click to see the content', PARAM_TEXT));
 }

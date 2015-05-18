@@ -66,7 +66,7 @@ function atto_hideabox_params_for_js($elementid, $options, $fpoptions) {
         $params['disabled'] = $disabled;
         
         //add our default flavor
-        $params['defaultflavor'] = get_config('atto_hideabox','defaultflavor');
+        $params['defaultheadline'] = get_config('atto_hideabox','defaultheadline');
 
     return $params;
 }

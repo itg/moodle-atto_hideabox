@@ -33,5 +33,5 @@ $string['insert'] = 'Insert';
 $string['cancel'] = 'Cancel';
 $string['headline'] = 'Headline Text';
 $string['content'] = 'Content';
-$string['defaultflavor'] = 'Default Ice Cream Flavor';
+$string['defaultheadline'] = 'Default Headline Text';
 $string['hideabox:visible'] = 'Visible';

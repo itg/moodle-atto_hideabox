@@ -52,7 +52,7 @@ var TEMPLATE = '' +
         '<div id="{{elementid}}_{{innerform}}">' +
             '<label for="{{elementid}}_{{HEADLINE}}">{{get_string "headline" component}}</label>' +
             '<input class="{{component}}_{{CSS.HEADLINE}} {{CSS.HEADLINE}} fullwidth" id="{{elementid}}_{{HEADLINE}}" ' +
-                ' name="{{elementid}}_{{HEADLINE}}" type="text" value="{{defaultflavor}}" />' +
+                ' name="{{elementid}}_{{HEADLINE}}" type="text" value="{{defaultheadline}}" />' +
             '<label for="{{elementid}}_{{CONTENT}}">{{get_string "content" component}}</label>' +
             '<textarea class="{{component}}_{{CSS.CONTENT}} {{CSS.CONTENT}} fullwidth" style="height: 10em;" id="{{elementid}}_{{CONTENT}}" ' +
                 ' name="{{elementid}}_{{CONTENT}}"></textarea>' +
@@ -155,7 +155,7 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
                 HEADLINE: HEADLINE,
                 CONTENT: CONTENT,
                 component: COMPONENTNAME,
-                defaultflavor: this.get('defaultflavor')
+                defaultheadline: this.get('defaultheadline')
             }));
 
         this._form = content;
@@ -208,7 +208,7 @@ Y.namespace('M.atto_hideabox').Button = Y.Base.create('button', Y.M.editor_atto.
 			value: null
 		},
 
-		defaultflavor: {
+		defaultheadline: {
 			value: ''
 		}
 	}
