@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014051303;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2015081000;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2013110500;        // Requires this Moodle version.
 $plugin->component = 'atto_hideabox';  // Full name of the plugin (used for diagnostics).
 $plugin->maturity  = MATURITY_STABLE;
 // Human readable version informatiomn
-$plugin->release   = '1.0.0 (Build ' . $plugin->version . ')';
+$plugin->release   = '1.0.1 (Build ' . $plugin->version . ')';
 
